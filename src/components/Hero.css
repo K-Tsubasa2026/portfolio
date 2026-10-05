@@ -1,0 +1,112 @@
+.hero {
+  padding-top: 80px;
+}
+
+.hero-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+.hero-text {
+  flex: 1;
+}
+
+.hero-name {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  font-size: 44px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.hero-name-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.hero-typewriter {
+  min-height: 54px; /* 文字が消えても高さが変わらないようにする */
+  margin-bottom: 24px;
+  font-size: 20px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* 点滅するカーソル */
+.hero-cursor {
+  color: var(--color-main);
+  animation: blink 0.8s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.hero-intro {
+  margin-bottom: 32px;
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--color-text-sub);
+}
+
+.hero-github {
+  display: inline-block;
+  font-size: 46px;
+  color: var(--color-text);
+  transition: color 0.2s, transform 0.2s;
+}
+
+.hero-github:hover {
+  color: var(--color-main);
+  transform: scale(1.1);
+}
+
+.hero-photo {
+  flex-shrink: 0;
+}
+
+.hero-photo img {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 4px 4px 24px rgba(120, 130, 164, 0.35);
+}
+
+/* タブレット・スマホ：写真を上、文章を下にする */
+@media (max-width: 760px) {
+  .hero {
+    padding-top: 40px;
+  }
+  .hero-inner {
+    flex-direction: column-reverse;
+    gap: 32px;
+    text-align: center;
+  }
+  .hero-name {
+    justify-content: center;
+    font-size: 32px;
+  }
+  .hero-name-logo {
+    width: 44px;
+    height: 44px;
+  }
+  .hero-typewriter {
+    font-size: 16px;
+  }
+  /* スマホでは改行を消して、画面幅で自然に折り返す */
+  .hero-intro br {
+    display: none;
+  }
+  .hero-photo img {
+    width: 220px;
+    height: 220px;
+  }
+}

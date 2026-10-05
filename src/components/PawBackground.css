@@ -1,0 +1,49 @@
+/* 画面全体に固定して、中身のうしろに置く */
+.paw-background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none; /* クリックのじゃまをしない */
+  overflow: hidden;
+}
+
+.paw {
+  position: absolute;
+  opacity: 0;
+  animation-name: paw-float;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* ふわっと現れて、ぷにぷに動いて、消える */
+@keyframes paw-float {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  10% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.15);
+  }
+  30% {
+    transform: scale(0.9);
+  }
+  40% {
+    transform: scale(1.15);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  60% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
