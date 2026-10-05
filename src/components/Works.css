@@ -1,0 +1,170 @@
+/* ---------- 共通（タグ・ボタン・説明文） ---------- */
+.work-label {
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-main);
+}
+
+.work-description {
+  margin-bottom: 16px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--color-text-sub);
+}
+
+.work-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.work-tags li {
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: var(--gradient-tag);
+  font-size: 13px;
+  font-weight: 700;
+  color: #555;
+}
+
+.work-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.work-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  padding: 8px 18px;
+  border: 2px solid var(--color-main);
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.work-button.is-primary {
+  background-color: var(--color-main);
+  color: #fff;
+}
+
+.work-button.is-primary:hover {
+  border-color: var(--color-main-dark);
+  background-color: var(--color-main-dark);
+}
+
+.work-button.is-outline {
+  background-color: #fff;
+  color: var(--color-main);
+}
+
+.work-button.is-outline:hover {
+  background-color: var(--color-hover-bg);
+}
+
+/* ---------- 大きいカード（dog-test） ---------- */
+.work-featured {
+  margin-bottom: 32px;
+  padding: 40px;
+  border-radius: 16px;
+  background-color: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.work-featured-media {
+  max-width: 880px;
+  margin: 0 auto 28px;
+  overflow: hidden;
+  border-radius: 12px;
+  aspect-ratio: 16 / 9; /* 横:縦 = 16:9 の枠 */
+  background-color: #fffbe0;
+}
+
+.work-featured-media img,
+.work-featured-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top; /* 画像の上のほうを見せる */
+}
+
+.work-featured-body {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.work-featured-title {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 800;
+  text-align: center;
+  color: var(--color-heading);
+}
+
+.work-featured .work-buttons {
+  justify-content: center;
+}
+
+/* ---------- 小さいカード（模写3作品） ---------- */
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.work-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 16px;
+  background-color: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.work-card-image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top;
+}
+
+.work-card-body {
+  display: flex;
+  flex: 1; /* カードの残りの高さを全部使う */
+  flex-direction: column;
+  padding: 22px;
+}
+
+.work-card-title {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-heading);
+}
+
+/* ボタンをカードの一番下に寄せて、3枚の高さをそろえる */
+.work-card .work-buttons {
+  margin-top: auto;
+}
+
+/* ---------- タブレット・スマホ ---------- */
+@media (max-width: 900px) {
+  .work-grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .work-featured {
+    padding: 20px;
+  }
+  .work-featured-title {
+    font-size: 20px;
+  }
+}
