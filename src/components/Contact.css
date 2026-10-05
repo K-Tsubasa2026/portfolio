@@ -1,0 +1,27 @@
+.contact-inner {
+  text-align: center;
+}
+
+.contact-message {
+  margin-bottom: 32px;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.contact-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 44px;
+  border-radius: 4px;
+  background-color: var(--color-main);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.contact-button:hover {
+  background-color: var(--color-main-dark);
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2);
+}

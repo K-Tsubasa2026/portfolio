@@ -1,0 +1,86 @@
+.about-card {
+  padding: 32px 40px;
+  border-radius: 6px;
+  background-color: var(--color-bg);
+  box-shadow: var(--shadow-card);
+}
+
+.about-card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.about-card-header i {
+  font-size: 26px;
+  color: var(--color-main);
+}
+
+.about-card-header h3 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.about-lead {
+  margin-bottom: 24px;
+  font-size: 15px;
+  line-height: 1.9;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* 3つの仕事カードを横に並べる */
+.work-areas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.work-area {
+  padding: 20px;
+  border: 1px solid #eee;
+  border-top: 3px solid var(--color-main);
+  border-radius: 4px;
+  background-color: #fafafa;
+}
+
+.work-area h4 {
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-main);
+}
+
+.work-area-note {
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.work-area li {
+  position: relative;
+  padding-left: 12px;
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--color-text-sub);
+}
+
+/* 先頭の小さな点 */
+.work-area li::before {
+  content: '·';
+  position: absolute;
+  left: 2px;
+  font-weight: 700;
+  color: var(--color-main);
+}
+
+/* タブレット・スマホ：仕事カードを縦に並べる */
+@media (max-width: 760px) {
+  .about-card {
+    padding: 24px 20px;
+  }
+  .work-areas {
+    grid-template-columns: 1fr;
+  }
+}

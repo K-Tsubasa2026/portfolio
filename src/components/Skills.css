@@ -1,0 +1,88 @@
+.skill {
+  display: flex;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.skill-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  width: 190px;
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.skill-name i {
+  width: 20px;
+  font-size: 18px;
+  text-align: center;
+  color: var(--color-main);
+}
+
+/* バーと説明文をまとめる箱。説明文の位置の基準になる */
+.skill-body {
+  position: relative;
+  flex: 1;
+}
+
+/* 灰色の外枠 */
+.skill-bar {
+  padding: 3px;
+  border-radius: 5px;
+  background-color: #eee;
+  box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.15);
+}
+
+/* オレンジの中身。最初は短く、画面に入ったら --level まで伸びる */
+.skill-level {
+  width: 10%;
+  height: 32px;
+  border-radius: 3px 20px 20px 3px;
+  background: var(--gradient-tag);
+  transition: width 1.6s ease-out;
+}
+
+.skills-list.is-visible .skill-level {
+  width: var(--level);
+}
+
+/* 説明文：オレンジのバーの右端に重ねる。バーが伸びきってから表示する */
+.skill-detail {
+  position: absolute;
+  top: 50%;
+  right: calc(100% - var(--level) + 16px);
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 700;
+  color: #666;
+  opacity: 0;
+  transition: opacity 0.5s ease 1.4s;
+}
+
+.skills-list.is-visible .skill-detail {
+  opacity: 1;
+}
+
+/* スマホ：スキル名をバーの上、説明文をバーの下に置く */
+@media (max-width: 600px) {
+  .skill {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .skill-level {
+    height: 20px;
+  }
+  .skill-detail {
+    position: static;
+    transform: none;
+    margin-top: 8px;
+    white-space: normal;
+    opacity: 1;
+    transition: none;
+  }
+}

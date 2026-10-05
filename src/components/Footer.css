@@ -1,0 +1,55 @@
+.footer {
+  padding: 10px;
+  background-color: var(--color-main);
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+}
+
+.back-to-top {
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  width: 64px;
+  height: 64px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  background-color: var(--color-main);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s;
+}
+
+.back-to-top:hover {
+  opacity: 0.8;
+}
+
+.back-to-top-label {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.back-to-top i {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* スマホ：少し小さく、端に寄せる */
+@media (max-width: 600px) {
+  .back-to-top {
+    right: 16px;
+    bottom: 16px;
+    width: 52px;
+    height: 52px;
+  }
+  .back-to-top i {
+    font-size: 16px;
+  }
+}
