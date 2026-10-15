@@ -18,7 +18,8 @@ export const works: Work[] = [
     description:
       '30問の質問に答えると、あなたの性格を12匹の犬に例えて診断するWebアプリです。会員登録・診断履歴・結果画像の保存やLINEシェアにも対応しています。',
     tags: ['React', 'TypeScript', 'Java', 'Spring Boot', 'PostgreSQL', 'Docker', 'AWS'],
-    image: '/dogtest.jpg',
+    image: '/videos/dogtest-poster.jpg', // 動画の読み込み中に表示する画像
+    video: '/videos/dogtest.mp4',
     url: 'https://d330uf5f2vl9lz.cloudfront.net',
     github: 'https://github.com/K-Tsubasa2026/dog-test',
     featured: true,

@@ -168,3 +168,91 @@
     font-size: 20px;
   }
 }
+
+/* ---------- 動画（dog-test） ---------- */
+/* 紺色の太い枠で囲み、パソコンの画面のように見せる */
+.work-video {
+  max-width: 880px;
+  margin: 0 auto 28px;
+  padding: 4px;
+  border-radius: 12px;
+  background-color: var(--color-heading);
+  box-shadow: 0 10px 28px rgba(76, 76, 109, 0.35);
+}
+
+.work-video-screen {
+  position: relative; /* 再生ボタンを重ねる基準 */
+  overflow: hidden;
+  border-radius: 8px;
+  aspect-ratio: 16 / 9;
+  background-color: #000;
+}
+
+.work-video-screen video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 再生前：画面全体を少し暗くして、真ん中に再生ボタンを出す */
+.work-video-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  border: none;
+  background-color: rgba(30, 30, 50, 0.45);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.work-video-play:hover {
+  background-color: rgba(30, 30, 50, 0.3);
+}
+
+.work-video-play-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 84px;
+  height: 84px;
+  padding-left: 6px; /* 三角形を見た目の中央に寄せる */
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffb27a, #f47c3c);
+  font-size: 32px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s;
+}
+
+.work-video-play:hover .work-video-play-icon {
+  transform: scale(1.08);
+}
+
+.work-video-play-label {
+  padding: 6px 16px;
+  border-radius: 999px;
+  background-color: rgba(0, 0, 0, 0.55);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 600px) {
+  .work-video {
+    padding: 2px;
+    border-radius: 10px;
+  }
+  .work-video-play-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 22px;
+  }
+  .work-video-play-label {
+    font-size: 12px;
+  }
+}
