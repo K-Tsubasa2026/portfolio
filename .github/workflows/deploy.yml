@@ -1,0 +1,64 @@
+# main にプッシュしたら、ビルドして S3 にアップロードし、CloudFront のキャッシュを削除する
+name: Deploy to S3 + CloudFront
+
+on:
+  push:
+    branches: [main]
+    # 説明文だけの変更では公開し直さない
+    paths-ignore:
+      - 'README.md'
+      - 'docs/**'
+  # GitHub の Actions 画面から手動でも動かせるようにする
+  workflow_dispatch:
+
+# AWS の一時的な鍵（OIDC）を受け取るために id-token が必要
+permissions:
+  id-token: write
+  contents: read
+
+# 2回続けてプッシュしても、公開作業が同時に動かないようにする
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+env:
+  AWS_REGION: ap-northeast-1
+  S3_BUCKET: portfolio-ktsubasa2026
+  CLOUDFRONT_DISTRIBUTION_ID: E37GW20TC31H3Z
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: コードを取得
+        uses: actions/checkout@v4
+
+      - name: Node.js を準備
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: パッケージをインストール
+        run: npm ci
+
+      - name: コードのチェック
+        run: npm run lint
+
+      - name: ビルド（型チェック込み）
+        run: npm run build
+
+      # アクセスキーは使わず、IAM ロールから一時的な権限をもらう
+      - name: AWS の権限を受け取る
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      # --delete：dist にないファイルは S3 からも消す（消した画像が残らないように）
+      - name: S3 にアップロード
+        run: aws s3 sync dist "s3://${S3_BUCKET}" --delete --exclude ".DS_Store"
+
+      # "/*" はまとめて1パスとして数えられる（月 1,000 パスまで無料）
+      - name: CloudFront のキャッシュを削除
+        run: aws cloudfront create-invalidation --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" --paths "/*"
