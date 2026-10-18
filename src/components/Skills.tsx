@@ -31,7 +31,7 @@ const skillGroups: SkillGroup[] = [
     sub: '公開・開発環境',
     icon: 'fa-solid fa-cloud',
     items: ['PostgreSQL', 'Docker', 'AWS（EC2・S3・CloudFront）', 'Git / GitHub', 'GitHub Actions'],
-    usedIn: 'dog-test を AWS で公開・マンガサイト模写を自動公開',
+    usedIn: 'dog-test・このサイトを AWS で公開／マンガサイト模写を自動公開',
   },
   {
     title: 'Design',

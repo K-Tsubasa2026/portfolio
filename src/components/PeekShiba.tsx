@@ -24,8 +24,8 @@ function PeekShiba({ message, sleeping = false, className = '' }: PeekShibaProps
 
       <span className="peek-shiba-clip">
         <span className="peek-shiba-body">
-          <img src={sleeping ? '/shiba/shiba-blink.webp' : '/shiba/shiba-normal.webp'} alt="" loading="lazy" />
-          {!sleeping && <img src="/shiba/shiba-happy.webp" alt="" className="peek-shiba-happy" loading="lazy" />}
+          <img src={sleeping ? '/shiba/haran3.webp' : '/shiba/haran1.webp'} alt="" loading="lazy" />
+          {!sleeping && <img src="/shiba/haran2.webp" alt="" className="peek-shiba-happy" loading="lazy" />}
         </span>
       </span>
     </div>

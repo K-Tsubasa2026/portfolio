@@ -6,8 +6,9 @@ const barks = ['ワン！', 'なでてくれて ありがとう', '作品も 見
 
 // 柴犬のキャラクター。
 // 同じ構図で表情だけちがう3枚の画像を重ねて、見せる画像を切りかえる。
-// ・ふだん：normal（ときどき blink を一瞬だけ見せて、まばたき）
-// ・クリックしたとき：happy に切りかえて、ぴょこっと弾む
+// （haran1＝通常・haran2＝笑顔・haran3＝目を閉じる）
+// ・ふだん：haran1（ときどき haran3 を一瞬だけ見せて、まばたき）
+// ・クリックしたとき：haran2 に切りかえて、ぴょこっと弾む
 function Shiba() {
   const [bark, setBark] = useState<{ id: number; text: string } | null>(null)
   const timerRef = useRef<number | undefined>(undefined)
@@ -43,9 +44,9 @@ function Shiba() {
         <span className="shiba-pop">
           {/* key を変えると、なでるたびに「ぴょこっ」が最初から動く */}
           <span key={bark?.id ?? 'idle'} className="shiba-body">
-            <img src="/shiba/shiba-normal.webp" alt="" className="shiba-img" />
-            <img src="/shiba/shiba-blink.webp" alt="" className="shiba-img shiba-img-blink" />
-            <img src="/shiba/shiba-happy.webp" alt="" className="shiba-img shiba-img-happy" />
+            <img src="/shiba/haran1.webp" alt="" className="shiba-img" />
+            <img src="/shiba/haran3.webp" alt="" className="shiba-img shiba-img-blink" />
+            <img src="/shiba/haran2.webp" alt="" className="shiba-img shiba-img-happy" />
           </span>
         </span>
       </span>
