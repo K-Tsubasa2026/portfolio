@@ -1,0 +1,133 @@
+/* =============================================
+   ふちから顔を出す、小さな柴犬
+   画像の下のふち（前足）を、親の上の線に少し重ねて置く
+   ============================================= */
+.peek-shiba {
+  position: absolute;
+  z-index: 1;
+  bottom: calc(100% - 8px);
+  width: var(--peek-width, 140px);
+}
+
+/* 下だけを切る：ここより下に隠れていて、上に出てくる */
+.peek-shiba-clip {
+  display: block;
+  clip-path: inset(-50% -50% 0 -50%);
+}
+
+.peek-shiba-body {
+  display: block;
+  position: relative;
+  transform: translateY(100%);
+  transition: transform 0.6s cubic-bezier(0.3, 1.4, 0.6, 1) 0.2s;
+}
+
+.peek-shiba.is-visible .peek-shiba-body {
+  transform: none;
+}
+
+.peek-shiba img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* マウスを乗せると笑顔に */
+.peek-shiba-happy {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.peek-shiba:hover .peek-shiba-happy {
+  opacity: 1;
+}
+
+/* ふきだし：柴犬が出てきたあとに、ぽんっと出る */
+.peek-shiba-bubble {
+  position: absolute;
+  bottom: 78%;
+  right: 82%;
+  padding: 8px 14px;
+  border: 3px solid var(--color-ink);
+  border-radius: 16px;
+  background-color: #fff;
+  font-size: 15px;
+  font-weight: 900;
+  white-space: nowrap;
+  color: var(--color-ink);
+  opacity: 0;
+  transform: scale(0.6);
+  transform-origin: bottom right;
+  transition:
+    opacity 0.3s ease-out 0.8s,
+    transform 0.3s cubic-bezier(0.3, 1.6, 0.6, 1) 0.8s;
+}
+
+.peek-shiba.is-visible .peek-shiba-bubble {
+  opacity: 1;
+  transform: none;
+}
+
+/* ふきだしのしっぽ（右下、柴犬の方へ） */
+.peek-shiba-bubble::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  bottom: -10px;
+  width: 14px;
+  height: 14px;
+  border-right: 3px solid var(--color-ink);
+  border-bottom: 3px solid var(--color-ink);
+  background-color: #fff;
+  transform: rotate(45deg);
+}
+
+/* 寝ているときの「Z z z」：ゆっくり浮かんで消える、をくり返す */
+.peek-shiba-zzz {
+  position: absolute;
+  bottom: 86%;
+  left: 86%;
+  font-family: var(--font-hand);
+  font-size: 26px;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--color-shiba);
+  animation: zzz 3s ease-in-out infinite;
+}
+
+@keyframes zzz {
+  0% {
+    opacity: 0;
+    transform: translate(0, 10px);
+  }
+  30%,
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(12px, -14px);
+  }
+}
+
+/* 動きを止める設定の人には、最初から見せる */
+@media (prefers-reduced-motion: reduce) {
+  .peek-shiba-body {
+    transform: none;
+  }
+  .peek-shiba-bubble {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .peek-shiba {
+    --peek-width: 100px;
+  }
+  .peek-shiba-bubble {
+    font-size: 13px;
+  }
+}

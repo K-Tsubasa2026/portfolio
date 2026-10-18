@@ -1,86 +1,183 @@
-.about-card {
-  padding: 32px 40px;
-  border-radius: 6px;
-  background-color: var(--color-bg);
-  box-shadow: var(--shadow-card);
-}
-
-.about-card-header {
-  display: flex;
+/* ---------- プロフィールカード（名刺） ---------- */
+.profile-card {
+  position: relative; /* 上のふちに柴犬をのせる基準 */
+  display: grid;
+  grid-template-columns: 280px 1fr;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: 44px;
+  margin-top: 90px; /* 柴犬が顔を出す場所 */
+  margin-bottom: 72px;
+  padding: 40px;
 }
 
-.about-card-header i {
-  font-size: 26px;
-  color: var(--color-main);
+.profile-card-shiba {
+  right: 60px; /* 左は見出しとかぶるので、右に置く */
 }
 
-.about-card-header h3 {
-  font-size: 20px;
+/* 写真：少し傾けた、白いふちのある写真 */
+.profile-photo {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 3px solid var(--color-ink);
+  border-radius: 18px;
+  box-shadow: 6px 6px 0 var(--color-shiba);
+  transform: rotate(-2deg);
+  transition: transform 0.3s cubic-bezier(0.3, 1.6, 0.6, 1);
+}
+
+.profile-photo:hover {
+  transform: rotate(1deg) scale(1.02);
+}
+
+.profile-label {
+  font-family: var(--font-hand);
+  font-size: 22px;
   font-weight: 700;
+  line-height: 1;
+  color: var(--color-shiba);
+}
+
+.profile-name {
+  margin-top: 6px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 38px;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  color: var(--color-ink);
+}
+
+.profile-name small {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-base);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  color: var(--color-text-sub);
+}
+
+.profile-chips {
+  margin-top: 16px;
+}
+
+.profile-text {
+  margin: 18px 0 24px;
+  font-size: 15px;
+  line-height: 2;
+  color: var(--color-text-sub);
+}
+
+/* ---------- いまの仕事 ---------- */
+.about-sub-title {
+  margin-bottom: 8px;
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--color-ink);
 }
 
 .about-lead {
   margin-bottom: 24px;
   font-size: 15px;
-  line-height: 1.9;
-  color: rgba(0, 0, 0, 0.7);
+  color: var(--color-text-sub);
 }
 
-/* 3つの仕事カードを横に並べる */
 .work-areas {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
+/* Reveal の箱を、行の高さいっぱいに伸ばす */
+.work-area-item {
+  display: flex;
+}
+
 .work-area {
-  padding: 20px;
-  border: 1px solid #eee;
-  border-top: 3px solid var(--color-main);
-  border-radius: 4px;
-  background-color: #fafafa;
+  width: 100%;
+  padding: 22px;
+  border: 2px solid var(--color-ink);
+  border-radius: 16px;
+  background-color: #fff;
 }
 
 .work-area h4 {
-  margin-bottom: 8px;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--color-main);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--color-ink);
+}
+
+.work-area h4 i {
+  color: var(--color-shiba);
 }
 
 .work-area-note {
   margin-bottom: 10px;
   font-size: 12px;
-  font-style: italic;
-  color: rgba(0, 0, 0, 0.45);
+  font-weight: 700;
+  color: var(--color-shiba);
 }
 
 .work-area li {
   position: relative;
-  padding-left: 12px;
-  font-size: 13px;
-  line-height: 1.9;
+  padding-left: 14px;
+  font-size: 13.5px;
+  line-height: 1.95;
   color: var(--color-text-sub);
 }
 
 /* 先頭の小さな点 */
 .work-area li::before {
-  content: '·';
+  content: '';
   position: absolute;
+  top: 0.85em;
   left: 2px;
-  font-weight: 700;
-  color: var(--color-main);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--color-shiba);
 }
 
-/* タブレット・スマホ：仕事カードを縦に並べる */
-@media (max-width: 760px) {
-  .about-card {
-    padding: 24px 20px;
+/* ---------- タブレット・スマホ ---------- */
+@media (max-width: 860px) {
+  .profile-card {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 28px;
+    text-align: center;
+  }
+  .profile-photo {
+    max-width: 240px;
+  }
+  .profile-chips {
+    justify-content: center;
+  }
+  .profile-text {
+    text-align: left;
   }
   .work-areas {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .profile-card {
+    margin-top: 70px;
+    padding: 24px 20px;
+  }
+  .profile-card-shiba {
+    right: 24px;
+  }
+  .profile-name {
+    font-size: 30px;
+  }
+  .profile-text {
+    font-size: 14px;
   }
 }

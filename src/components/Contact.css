@@ -1,27 +1,48 @@
-.contact-inner {
+/* 紺色の大きな箱。ボタンは紺の影だと見えないので、オレンジの影にする */
+.contact-box {
+  padding: 56px 40px;
+  border-radius: 24px;
+  background-color: var(--color-ink);
   text-align: center;
+  color: var(--color-paper);
 }
 
 .contact-message {
-  margin-bottom: 32px;
-  font-size: 18px;
-  color: rgba(0, 0, 0, 0.55);
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3.4vw, 38px);
+  line-height: 1.5;
+  letter-spacing: 0.04em;
 }
 
-.contact-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px 44px;
-  border-radius: 4px;
-  background-color: var(--color-main);
-  color: #fff;
-  font-size: 17px;
+.contact-sub {
+  margin-top: 14px;
+  font-size: 16px;
   font-weight: 700;
-  transition: background-color 0.2s, box-shadow 0.2s;
+  color: rgba(246, 239, 226, 0.75);
 }
 
-.contact-button:hover {
-  background-color: var(--color-main-dark);
-  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2);
+.contact-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.contact-box .btn {
+  border-color: var(--color-paper);
+  box-shadow: 4px 4px 0 var(--color-shiba);
+}
+
+.contact-box .btn:hover {
+  box-shadow: 2px 2px 0 var(--color-shiba);
+}
+
+@media (max-width: 600px) {
+  .contact-box {
+    padding: 40px 20px;
+  }
+  .contact-sub {
+    font-size: 14px;
+  }
 }

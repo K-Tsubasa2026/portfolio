@@ -1,67 +1,90 @@
-import type { CSSProperties } from 'react'
-import { useInView } from '../hooks/useInView'
+import Reveal from './Reveal'
+import SectionTitle from './SectionTitle'
 import './Skills.css'
 
-type Skill = {
-  name: string
+type SkillGroup = {
+  title: string
+  sub: string
   icon: string // Font Awesome のクラス名
-  level: number // バーの長さ（%）
-  detail: string
+  items: string[]
+  usedIn: string // どこで使ったか（実績とつなげる）
 }
 
-const skills: Skill[] = [
+// 「何%できる」ではなく、「何を・どこで使ったか」を見せる
+const skillGroups: SkillGroup[] = [
   {
-    name: 'Design',
-    icon: 'fa-solid fa-gem',
-    level: 85,
-    detail: 'Figma / WordPress / Photoshop / Illustrator / Premiere Pro / Canva',
+    title: 'Frontend',
+    sub: '画面づくり',
+    icon: 'fa-solid fa-display',
+    items: ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'Vite'],
+    usedIn: 'dog-test・模写3作品・このサイト',
   },
   {
-    name: 'Programming',
-    icon: 'fa-solid fa-file-code',
-    level: 50,
-    detail: 'HTML5 / CSS3 / JavaScript / TypeScript / React / PHP',
+    title: 'Backend',
+    sub: 'サーバー',
+    icon: 'fa-solid fa-server',
+    items: ['Java', 'Spring Boot', 'Spring Security', 'JPA', 'JWT', 'PHP'],
+    usedIn: 'dog-test の REST API・ログイン機能',
   },
   {
-    name: 'Analysis',
+    title: 'Infra / Tools',
+    sub: '公開・開発環境',
+    icon: 'fa-solid fa-cloud',
+    items: ['PostgreSQL', 'Docker', 'AWS（EC2・S3・CloudFront）', 'Git / GitHub', 'GitHub Actions'],
+    usedIn: 'dog-test を AWS で公開・マンガサイト模写を自動公開',
+  },
+  {
+    title: 'Design',
+    sub: 'デザイン',
+    icon: 'fa-solid fa-pen-nib',
+    items: ['Figma', 'Photoshop', 'Illustrator', 'Premiere Pro', 'Canva', 'WordPress'],
+    usedIn: '現職でバナー・リーフレット・動画を制作',
+  },
+  {
+    title: 'Analysis',
+    sub: '統計分析',
     icon: 'fa-solid fa-chart-pie',
-    level: 80,
-    detail: '相関 / 重回帰 / クロス / t検定 / 分散 / クラスタ / 因子分析',
+    items: ['SPSS', 'Excel', '重回帰', 't検定', 'クラスタ分析', '因子分析'],
+    usedIn: '現職で組織分析・採用分析のレポートを作成',
   },
   {
-    name: 'Project Coordination',
-    icon: 'fa-solid fa-calendar-days',
-    level: 75,
-    detail: 'セミナー企画・運営における進行管理 / 関係者調整 / スケジュール管理 / タスク管理',
+    title: 'Project',
+    sub: '進行管理',
+    icon: 'fa-solid fa-list-check',
+    items: ['企画立案', 'スケジュール管理', 'タスク管理', '関係者調整'],
+    usedIn: '現職で年間9回のセミナーを運営',
   },
 ]
 
 function Skills() {
-  // リストが画面に入ったら、バーを伸ばす
-  const { ref, inView } = useInView<HTMLUListElement>()
-
   return (
     <section id="skills">
       <div className="container">
-        <h2 className="section-title">SKILLS</h2>
-        <ul ref={ref} className={`skills-list${inView ? ' is-visible' : ''}`}>
-          {skills.map((skill) => (
-            // --level：CSS に「何%まで伸ばすか」を渡す
-            <li
-              key={skill.name}
-              className="skill"
-              style={{ '--level': `${skill.level}%` } as CSSProperties}
-            >
-              <span className="skill-name">
-                <i className={skill.icon} aria-hidden="true" />
-                {skill.name}
-              </span>
-              <div className="skill-body">
-                <div className="skill-bar">
-                  <div className="skill-level" />
+        <SectionTitle num="02" en="SKILLS" ja="できること" />
+        <ul className="skill-grid">
+          {skillGroups.map((group, index) => (
+            <li key={group.title} className="skill-grid-item">
+              {/* 横に3つずつ並ぶので、列ごとに少しずつずらして出す */}
+              <Reveal delay={(index % 3) * 0.12} className="card skill-card">
+                <div className="skill-card-head">
+                  <span className="skill-icon">
+                    <i className={group.icon} aria-hidden="true" />
+                  </span>
+                  <div>
+                    <h3>{group.title}</h3>
+                    <p>{group.sub}</p>
+                  </div>
                 </div>
-                <p className="skill-detail">{skill.detail}</p>
-              </div>
+                <ul className="chips">
+                  {group.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+                <p className="skill-used">
+                  <i className="fa-solid fa-paw" aria-hidden="true" />
+                  {group.usedIn}
+                </p>
+              </Reveal>
             </li>
           ))}
         </ul>

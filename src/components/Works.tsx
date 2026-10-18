@@ -1,6 +1,9 @@
 import { useRef, useState } from 'react'
 import { works, type Work } from '../data/works'
-import { WorkButtons, WorkTags } from './WorkParts'
+import { ArchitectureDiagram, WorkButtons, WorkTags } from './WorkParts'
+import PeekShiba from './PeekShiba'
+import Reveal from './Reveal'
+import SectionTitle from './SectionTitle'
 import './Works.css'
 
 // featured が付いた作品（dog-test）と、それ以外に分ける
@@ -26,50 +29,90 @@ function WorkVideo({ src, poster }: { src: string; poster: string }) {
 
   return (
     <div className="work-video">
-      <div className="work-video-screen">
-        {/* controls：再生中だけ、一時停止や全画面の操作バーを出す */}
-        <video
-          ref={videoRef}
-          src={src}
-          poster={poster}
-          preload="metadata"
-          playsInline
-          controls={isPlaying}
-          onEnded={handleEnded}
-        />
-        {!isPlaying && (
-          <button type="button" className="work-video-play" onClick={handlePlay}>
-            <span className="work-video-play-icon" aria-hidden="true">
-              <i className="fa-solid fa-play" />
-            </span>
-            <span className="work-video-play-label">デモ動画を再生（約1分）</span>
-          </button>
-        )}
-      </div>
+      {/* controls：再生中だけ、一時停止や全画面の操作バーを出す */}
+      <video
+        ref={videoRef}
+        src={src}
+        poster={poster}
+        preload="metadata"
+        playsInline
+        controls={isPlaying}
+        onEnded={handleEnded}
+      />
+      {!isPlaying && (
+        <button type="button" className="work-video-play" onClick={handlePlay}>
+          <span className="work-video-play-icon" aria-hidden="true">
+            <i className="fa-solid fa-play" />
+          </span>
+          <span className="work-video-play-label">デモ動画を再生（約1分）</span>
+        </button>
+      )}
     </div>
   )
 }
 
-// 大きいカード：動画（なければ画像）を中央に置き、その下に説明
+// 大きいカード：上段に「動画｜タイトル・概要」、下段に機能・工夫・構成図
 function FeaturedWorkCard({ work }: { work: Work }) {
   return (
-    <article className="work-featured">
-      {work.video ? (
-        <WorkVideo src={work.video} poster={work.image} />
-      ) : (
-        <div className="work-featured-media">
-          <img src={work.image} alt={`${work.title}の画面`} />
+    <article className="card work-featured">
+      <PeekShiba message="これ、自信作です！" className="work-featured-shiba" />
+
+      <div className="work-featured-top">
+        {work.video ? (
+          <WorkVideo src={work.video} poster={work.image} />
+        ) : (
+          <img src={work.image} alt={`${work.title}の画面`} className="work-featured-image" />
+        )}
+
+        <div className="work-featured-body">
+          <p className="work-badge">MAIN WORK ／ 個人開発</p>
+          <h3 className="work-featured-title">{work.title}</h3>
+          <p className="work-description">{work.description}</p>
+          <WorkTags tags={work.tags} />
+          <WorkButtons work={work} />
+        </div>
+      </div>
+
+      {work.features && (
+        <Reveal className="work-block">
+          <h4 className="work-block-title">主な機能</h4>
+          <ul className="work-features">
+            {work.features.map((feature) => (
+              <li key={feature}>
+                <i className="fa-solid fa-paw" aria-hidden="true" />
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+      )}
+
+      {work.points && (
+        <div className="work-block">
+          <Reveal>
+            <h4 className="work-block-title">工夫したこと</h4>
+          </Reveal>
+          <ol className="work-points">
+            {work.points.map((point, index) => (
+              // 3つを順番に、少しずつずらして出す
+              <li key={point.title}>
+                <Reveal delay={index * 0.12} className="work-point">
+                  <span className="work-point-num">{String(index + 1).padStart(2, '0')}</span>
+                  <h5>{point.title}</h5>
+                  <p>{point.body}</p>
+                </Reveal>
+              </li>
+            ))}
+          </ol>
         </div>
       )}
 
-      <div className="work-featured-body">
-        <h3 className="work-featured-title">{work.title}</h3>
-        <h4 className="work-label">概要</h4>
-        <p className="work-description">{work.description}</p>
-        <h4 className="work-label">使用技術</h4>
-        <WorkTags tags={work.tags} />
-        <WorkButtons work={work} />
-      </div>
+      {work.showArchitecture && (
+        <Reveal className="work-block">
+          <h4 className="work-block-title">システム構成</h4>
+          <ArchitectureDiagram />
+        </Reveal>
+      )}
     </article>
   )
 }
@@ -77,7 +120,7 @@ function FeaturedWorkCard({ work }: { work: Work }) {
 // 小さいカード：上に画像、下に説明
 function WorkCard({ work }: { work: Work }) {
   return (
-    <article className="work-card">
+    <article className="card work-card">
       <img src={work.image} alt={`${work.title}の画面`} className="work-card-image" loading="lazy" />
       <div className="work-card-body">
         <h3 className="work-card-title">{work.title}</h3>
@@ -93,11 +136,22 @@ function Works() {
   return (
     <section id="works">
       <div className="container">
-        <h2 className="section-title">WORKS</h2>
-        {featuredWork && <FeaturedWorkCard work={featuredWork} />}
+        <SectionTitle num="01" en="WORKS" ja="つくったもの" />
+
+        {featuredWork && (
+          <Reveal>
+            <FeaturedWorkCard work={featuredWork} />
+          </Reveal>
+        )}
+
+        <Reveal>
+          <h3 className="works-sub-title">模写で練習した作品</h3>
+        </Reveal>
         <div className="work-grid">
-          {otherWorks.map((work) => (
-            <WorkCard key={work.id} work={work} />
+          {otherWorks.map((work, index) => (
+            <Reveal key={work.id} delay={index * 0.12} className="work-grid-item">
+              <WorkCard work={work} />
+            </Reveal>
           ))}
         </div>
       </div>

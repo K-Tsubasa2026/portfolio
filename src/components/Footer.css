@@ -1,43 +1,67 @@
 .footer {
-  padding: 10px;
-  background-color: var(--color-main);
-  color: #fff;
+  position: relative; /* 上のふちに柴犬をのせる基準 */
+  margin-top: 110px; /* 柴犬が顔を出す場所 */
+  padding: 28px 20px;
+  background-color: var(--color-ink);
   text-align: center;
-  font-size: 14px;
+  color: var(--color-paper);
 }
 
+.footer-shiba {
+  left: 50%;
+  margin-left: calc(var(--peek-width, 140px) / -2); /* まん中に置く */
+}
+
+.footer-copy {
+  font-size: 13px;
+  color: rgba(246, 239, 226, 0.7);
+}
+
+/* ---------- TOPへボタン ---------- */
 .back-to-top {
   position: fixed;
-  right: 40px;
-  bottom: 40px;
+  right: 32px;
+  bottom: 32px;
   z-index: 100;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 3px;
-  width: 64px;
-  height: 64px;
-  border: 2px solid rgba(255, 255, 255, 0.6);
+  gap: 2px;
+  width: 60px;
+  height: 60px;
+  border: 3px solid var(--color-ink);
   border-radius: 50%;
-  background-color: var(--color-main);
+  background-color: var(--color-shiba);
   color: #fff;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  transition: opacity 0.3s;
+  box-shadow: 4px 4px 0 var(--color-ink);
+  /* ふだんは隠しておき、スクロールしたら下から出す */
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(16px);
+  transition: opacity 0.3s, transform 0.3s, box-shadow 0.15s;
 }
 
-.back-to-top:hover {
-  opacity: 0.8;
+.back-to-top.is-shown {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+.back-to-top.is-shown:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--color-ink);
 }
 
 .back-to-top-label {
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
   line-height: 1;
 }
 
 .back-to-top i {
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1;
 }
 
@@ -50,6 +74,6 @@
     height: 52px;
   }
   .back-to-top i {
-    font-size: 16px;
+    font-size: 15px;
   }
 }

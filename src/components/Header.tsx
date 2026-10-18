@@ -1,11 +1,11 @@
 import './Header.css'
 
-// メニューの項目
+// メニューの項目（番号は「さんぽ道の立ち寄りポイント」の順番）
 const navItems = [
-  { label: 'works', href: '#works' },
-  { label: 'skills', href: '#skills' },
-  { label: 'about me', href: '#about' },
-  { label: 'contact', href: '#contact' },
+  { label: 'WORKS', href: '#works' },
+  { label: 'SKILLS', href: '#skills' },
+  { label: 'ABOUT', href: '#about' },
+  { label: 'CONTACT', href: '#contact' },
 ]
 
 function Header() {
@@ -13,11 +13,14 @@ function Header() {
     <header className="header">
       <div className="container header-inner">
         <a href="#top" className="header-logo">
-          KANEMATSU TSUBASA
+          <img src="/shibalogo.png" alt="" />
+          TSUBASA
         </a>
         <nav className="header-nav">
-          {navItems.map((item) => (
+          {navItems.map((item, index) => (
             <a key={item.href} href={item.href}>
+              {/* 01, 02 … のように2けたで表示する */}
+              <span className="header-nav-num">{String(index + 1).padStart(2, '0')}</span>
               {item.label}
             </a>
           ))}

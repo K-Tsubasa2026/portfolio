@@ -17,7 +17,9 @@ export function useInView<T extends HTMLElement>() {
           observer.disconnect() // 一度見えたら、それ以上は調べない
         }
       },
-      { threshold: 0.3 }, // 30% 見えたら「入った」とする
+      // 画面の下から 15% 入ったところで「入った」とする。
+      // （割合で決めると、スマホで縦に長い要素がいつまでも「入らない」ため）
+      { rootMargin: '0px 0px -15% 0px' },
     )
 
     observer.observe(element)

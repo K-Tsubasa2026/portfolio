@@ -1,0 +1,185 @@
+/* =============================================
+   柴犬キャラクター
+   ふだんの見た目を「完成形」にして、アニメーションは
+   「消えた状態から完成形へ」だけを書く（動きを止める設定でも見える）
+   ============================================= */
+.shiba {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 下だけを切る（上・左右は、弾んだときにはみ出してもよい） */
+.shiba-clip {
+  display: block;
+  clip-path: inset(-50% -50% 0 -50%);
+}
+
+.shiba-pop,
+.shiba-body {
+  display: block;
+  position: relative;
+  transform-origin: 50% 100%; /* 足もとを中心に伸び縮みさせる */
+}
+
+/* 3枚の画像をぴったり重ねる。1枚目で高さを決め、2・3枚目は上にのせる */
+.shiba-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.shiba-img-blink,
+.shiba-img-happy {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+/* ---------- 登場：手すりの下から、ひょっこり ---------- */
+.shiba-pop {
+  animation: shiba-pop 0.8s 0.4s cubic-bezier(0.3, 1.4, 0.6, 1) both;
+}
+
+@keyframes shiba-pop {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+/* ---------- ふだんの動き ---------- */
+/* 息をするように、ゆっくりふくらむ（足もとは動かない） */
+.shiba-body {
+  animation: breathe 3s 1.4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  50% {
+    transform: scale(1.01, 1.025);
+  }
+}
+
+/* ときどき、目を閉じた画像を一瞬だけ見せる＝まばたき */
+.shiba-img-blink {
+  animation: blink 4.5s 2s infinite;
+}
+
+@keyframes blink {
+  0%,
+  93%,
+  97%,
+  100% {
+    opacity: 0;
+  }
+  94%,
+  96% {
+    opacity: 1;
+  }
+}
+
+/* マウスを乗せると、少し背のびする */
+.shiba-clip {
+  transform-origin: 50% 100%;
+  transition: transform 0.2s;
+}
+
+.shiba:hover .shiba-clip {
+  transform: scaleY(1.03);
+}
+
+/* ---------- なでたとき ---------- */
+.shiba.is-happy .shiba-img-happy {
+  opacity: 1;
+}
+
+.shiba.is-happy .shiba-img-blink {
+  animation: none; /* 笑っているあいだは、まばたきしない */
+}
+
+/* ぴょこっと弾む（つぶれて → 伸びて → もとに戻る） */
+.shiba.is-happy .shiba-body {
+  animation: boing 0.5s ease-out;
+}
+
+@keyframes boing {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.06, 0.92);
+  }
+  60% {
+    transform: scale(0.97, 1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* キーボードで選んだときも、どこにいるか分かるようにする */
+.shiba:focus-visible {
+  outline: 3px dashed var(--color-shiba);
+  outline-offset: 6px;
+  border-radius: 16px;
+}
+
+/* ふきだし */
+.shiba-bubble {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 66%;
+  padding: 10px 18px;
+  border: 3px solid var(--color-ink);
+  border-radius: 20px;
+  background-color: #fff;
+  font-weight: 900;
+  font-size: 18px;
+  white-space: nowrap;
+  color: var(--color-ink);
+  animation: bubble 1.8s ease-out both;
+}
+
+/* ふきだしのしっぽ */
+.shiba-bubble::after {
+  content: '';
+  position: absolute;
+  left: 18px;
+  bottom: -11px;
+  width: 16px;
+  height: 16px;
+  border-right: 3px solid var(--color-ink);
+  border-bottom: 3px solid var(--color-ink);
+  background-color: #fff;
+  transform: rotate(45deg);
+}
+
+@keyframes bubble {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.6);
+  }
+  15%,
+  80% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@media (max-width: 600px) {
+  .shiba-bubble {
+    left: 50%;
+    font-size: 15px;
+  }
+}

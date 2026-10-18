@@ -4,7 +4,7 @@
   top: 0;
   z-index: 100;
   height: var(--header-height);
-  background-color: rgba(255, 255, 255, 0.92);
+  background-color: rgba(246, 239, 226, 0.88); /* 紙の色を少し透かす */
   backdrop-filter: blur(6px);
 }
 
@@ -16,27 +16,62 @@
 }
 
 .header-logo {
-  font-size: 28px;
-  color: var(--color-main);
-  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 20px;
+  letter-spacing: 0.08em;
+  color: var(--color-ink);
+}
+
+.header-logo img {
+  height: 40px;
+  transition: transform 0.3s;
+}
+
+/* ロゴにマウスを乗せると、柴犬が首をかしげる */
+.header-logo:hover img {
+  transform: rotate(-12deg);
 }
 
 .header-nav {
   display: flex;
-  gap: 4px;
+  gap: 32px;
 }
 
 .header-nav a {
-  padding: 8px 18px;
-  color: var(--color-main);
+  position: relative;
+  color: var(--color-ink);
   font-weight: 700;
-  font-size: 14px;
-  border-radius: 4px;
-  transition: background-color 0.2s;
+  font-size: 15px;
+  letter-spacing: 0.06em;
 }
 
-.header-nav a:hover {
-  background-color: var(--color-hover-bg);
+.header-nav-num {
+  margin-right: 4px;
+  font-family: var(--font-hand);
+  font-size: 16px;
+  color: var(--color-shiba);
+}
+
+/* マウスを乗せると、下に手書き風の線がのびる */
+.header-nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 3px;
+  border-radius: 2px;
+  background-color: var(--color-shiba);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s;
+}
+
+.header-nav a:hover::after {
+  transform: scaleX(1);
 }
 
 /* タブレット・スマホ：ロゴとメニューを縦に並べる */
@@ -47,13 +82,15 @@
   }
   .header-inner {
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
   }
-  .header-logo {
-    font-size: 22px;
+  .header-logo img {
+    height: 32px;
+  }
+  .header-nav {
+    gap: 16px;
   }
   .header-nav a {
-    padding: 6px 10px;
     font-size: 13px;
   }
 }

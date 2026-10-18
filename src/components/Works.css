@@ -1,128 +1,258 @@
-/* ---------- 共通（タグ・ボタン・説明文） ---------- */
-.work-label {
-  margin-bottom: 6px;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--color-main);
-}
-
+/* ---------- 共通（説明文・タグ・ボタン） ---------- */
 .work-description {
-  margin-bottom: 16px;
+  margin-bottom: 18px;
   font-size: 14px;
-  line-height: 1.8;
+  line-height: 1.9;
   color: var(--color-text-sub);
 }
 
 .work-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 24px;
-}
-
-.work-tags li {
-  padding: 2px 12px;
-  border-radius: 999px;
-  background: var(--gradient-tag);
-  font-size: 13px;
-  font-weight: 700;
-  color: #555;
+  margin-bottom: 22px;
 }
 
 .work-buttons {
   display: flex;
-  gap: 10px;
-}
-
-.work-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 100px;
-  padding: 8px 18px;
-  border: 2px solid var(--color-main);
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 700;
-  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-}
-
-.work-button.is-primary {
-  background-color: var(--color-main);
-  color: #fff;
-}
-
-.work-button.is-primary:hover {
-  border-color: var(--color-main-dark);
-  background-color: var(--color-main-dark);
-}
-
-.work-button.is-outline {
-  background-color: #fff;
-  color: var(--color-main);
-}
-
-.work-button.is-outline:hover {
-  background-color: var(--color-hover-bg);
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 /* ---------- 大きいカード（dog-test） ---------- */
 .work-featured {
-  margin-bottom: 32px;
+  position: relative; /* 上のふちに柴犬をのせる基準 */
+  margin-top: 90px; /* 柴犬が顔を出す場所 */
+  margin-bottom: 72px;
   padding: 40px;
-  border-radius: 16px;
-  background-color: #fff;
-  box-shadow: var(--shadow-card);
 }
 
-.work-featured-media {
-  max-width: 880px;
-  margin: 0 auto 28px;
-  overflow: hidden;
-  border-radius: 12px;
-  aspect-ratio: 16 / 9; /* 横:縦 = 16:9 の枠 */
-  background-color: #fffbe0;
+.work-featured-shiba {
+  right: 48px;
 }
 
-.work-featured-media img,
-.work-featured-media video {
+/* 上段：左に動画、右にタイトル・概要 */
+.work-featured-top {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  align-items: center;
+  gap: 40px;
+}
+
+.work-featured-image {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top; /* 画像の上のほうを見せる */
+  border: 3px solid var(--color-ink);
+  border-radius: 14px;
 }
 
-.work-featured-body {
-  max-width: 880px;
-  margin: 0 auto;
+.work-badge {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background-color: var(--color-ink);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: var(--color-paper);
 }
 
 .work-featured-title {
-  margin-bottom: 20px;
-  font-size: 24px;
-  font-weight: 800;
-  text-align: center;
-  color: var(--color-heading);
+  margin-bottom: 14px;
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 1.4;
+  color: var(--color-ink);
 }
 
-.work-featured .work-buttons {
-  justify-content: center;
+/* 下段のまとまり（主な機能・工夫したこと・システム構成） */
+.work-block {
+  margin-top: 44px;
+  padding-top: 32px;
+  border-top: 2px dashed rgba(46, 45, 68, 0.25);
+}
+
+.work-block-title {
+  margin-bottom: 18px;
+  font-size: 19px;
+  font-weight: 900;
+  color: var(--color-ink);
+}
+
+/* 見出しの前の、オレンジの短い線 */
+.work-block-title::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 4px;
+  margin-right: 10px;
+  border-radius: 2px;
+  background-color: var(--color-shiba);
+  vertical-align: middle;
+}
+
+/* 主な機能：3列 */
+.work-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px 24px;
+}
+
+.work-features li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.work-features i {
+  color: var(--color-shiba);
+}
+
+/* 工夫したこと：3つのカード */
+.work-points {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.work-point {
+  height: 100%;
+  padding: 22px;
+  border: 2px solid var(--color-ink);
+  border-radius: 16px;
+  background-color: var(--color-paper);
+}
+
+.work-point-num {
+  display: block;
+  font-family: var(--font-hand);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-shiba);
+}
+
+.work-point h5 {
+  margin: 8px 0 10px;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.5;
+  color: var(--color-ink);
+}
+
+.work-point p {
+  font-size: 13.5px;
+  line-height: 1.9;
+  color: var(--color-text-sub);
+}
+
+/* ---------- システム構成図 ---------- */
+.arch {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.arch-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.arch-row-title {
+  width: 52px;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: var(--color-shiba);
+}
+
+.arch-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.arch-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 110px;
+  padding: 8px 14px;
+  border: 2px solid var(--color-ink);
+  border-radius: 12px;
+  background-color: #fff;
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--color-ink);
+}
+
+.arch-node small {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-sub);
+}
+
+.arch-arrow {
+  font-weight: 900;
+  color: var(--color-shiba);
+}
+
+/* EC2 の中にまとめる枠 */
+.arch-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 12px 10px;
+  border: 2px dashed var(--color-ink);
+  border-radius: 14px;
+  background-color: var(--color-paper);
+}
+
+.arch-group-title {
+  position: absolute;
+  top: -11px;
+  left: 12px;
+  padding: 0 8px;
+  background-color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--color-ink);
 }
 
 /* ---------- 小さいカード（模写3作品） ---------- */
+.works-sub-title {
+  margin-bottom: 24px;
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--color-ink);
+}
+
 .work-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 28px;
 }
 
+/* Reveal の箱も、カードと同じ高さまで伸ばす */
+.work-grid-item {
+  display: flex;
+}
+
 .work-card {
   display: flex;
   flex-direction: column;
+  width: 100%;
   overflow: hidden;
-  border-radius: 16px;
-  background-color: #fff;
-  box-shadow: var(--shadow-card);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* マウスを乗せると、少し浮く */
+.work-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 var(--color-ink);
 }
 
 .work-card-image {
@@ -130,6 +260,7 @@
   aspect-ratio: 16 / 10;
   object-fit: cover;
   object-position: top;
+  border-bottom: 3px solid var(--color-ink);
 }
 
 .work-card-body {
@@ -142,8 +273,8 @@
 .work-card-title {
   margin-bottom: 10px;
   font-size: 18px;
-  font-weight: 800;
-  color: var(--color-heading);
+  font-weight: 900;
+  color: var(--color-ink);
 }
 
 /* ボタンをカードの一番下に寄せて、3枚の高さをそろえる */
@@ -151,44 +282,17 @@
   margin-top: auto;
 }
 
-/* ---------- タブレット・スマホ ---------- */
-@media (max-width: 900px) {
-  .work-grid {
-    grid-template-columns: 1fr;
-    max-width: 480px;
-    margin: 0 auto;
-  }
-}
-
-@media (max-width: 600px) {
-  .work-featured {
-    padding: 20px;
-  }
-  .work-featured-title {
-    font-size: 20px;
-  }
-}
-
 /* ---------- 動画（dog-test） ---------- */
-/* 紺色の太い枠で囲み、パソコンの画面のように見せる */
 .work-video {
-  max-width: 880px;
-  margin: 0 auto 28px;
-  padding: 4px;
-  border-radius: 12px;
-  background-color: var(--color-heading);
-  box-shadow: 0 10px 28px rgba(76, 76, 109, 0.35);
-}
-
-.work-video-screen {
   position: relative; /* 再生ボタンを重ねる基準 */
   overflow: hidden;
-  border-radius: 8px;
+  border: 3px solid var(--color-ink);
+  border-radius: 14px;
   aspect-ratio: 16 / 9;
   background-color: #000;
 }
 
-.work-video-screen video {
+.work-video video {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -205,27 +309,28 @@
   gap: 14px;
   width: 100%;
   border: none;
-  background-color: rgba(30, 30, 50, 0.45);
+  background-color: rgba(30, 30, 50, 0.4);
   color: #fff;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
 .work-video-play:hover {
-  background-color: rgba(30, 30, 50, 0.3);
+  background-color: rgba(30, 30, 50, 0.25);
 }
 
 .work-video-play-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 84px;
-  height: 84px;
+  width: 76px;
+  height: 76px;
   padding-left: 6px; /* 三角形を見た目の中央に寄せる */
+  border: 3px solid var(--color-ink);
   border-radius: 50%;
-  background: linear-gradient(135deg, #ffb27a, #f47c3c);
-  font-size: 32px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  background-color: var(--color-shiba);
+  font-size: 28px;
+  box-shadow: 4px 4px 0 var(--color-ink);
   transition: transform 0.2s;
 }
 
@@ -237,22 +342,68 @@
   padding: 6px 16px;
   border-radius: 999px;
   background-color: rgba(0, 0, 0, 0.55);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.05em;
 }
 
+/* ---------- タブレット ---------- */
+@media (max-width: 960px) {
+  .work-featured-top {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .work-features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .work-points {
+    grid-template-columns: 1fr;
+  }
+  .work-grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+/* ---------- スマホ ---------- */
 @media (max-width: 600px) {
-  .work-video {
-    padding: 2px;
-    border-radius: 10px;
+  .work-featured {
+    margin-top: 120px; /* ふきだしが見出しにかぶらないよう広めに */
+    padding: 20px;
+  }
+  .work-featured-shiba {
+    right: 20px;
+  }
+  .work-featured-title {
+    font-size: 21px;
+  }
+  .work-features {
+    grid-template-columns: 1fr;
   }
   .work-video-play-icon {
-    width: 60px;
-    height: 60px;
-    font-size: 22px;
+    width: 56px;
+    height: 56px;
+    font-size: 20px;
   }
   .work-video-play-label {
     font-size: 12px;
+  }
+  /* 構成図：横に並べず、上から下へ（矢印も下向きに） */
+  .arch-row,
+  .arch-step,
+  .arch-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .arch-row-title {
+    width: auto;
+  }
+  .arch-arrow {
+    align-self: center;
+    transform: rotate(90deg);
+  }
+  .arch-group {
+    padding-top: 22px;
   }
 }

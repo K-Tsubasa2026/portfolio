@@ -1,112 +1,303 @@
+/* =============================================
+   ヒーロー（最初の画面）
+   左：名前とひとこと ／ 右：手すりからのぞく柴犬
+   ============================================= */
 .hero {
-  padding-top: 80px;
+  --shiba-width: 380px;
+  --ledge-height: 64px;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100svh - var(--header-height));
+  padding: 0; /* section 共通の余白は使わない */
+  overflow: hidden;
 }
 
 .hero-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 60px;
-}
-
-.hero-text {
   flex: 1;
-}
-
-.hero-name {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
-  font-size: 44px;
-  font-weight: 700;
-  color: var(--color-text);
+  gap: 40px;
 }
 
-.hero-name-logo {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
+/* ---------- 左：文章 ---------- */
+.hero-text {
+  padding: 48px 0 64px;
 }
 
-.hero-typewriter {
-  min-height: 54px; /* 文字が消えても高さが変わらないようにする */
-  margin-bottom: 24px;
-  font-size: 20px;
-  font-weight: 700;
-  color: rgba(0, 0, 0, 0.6);
+/* 文章を上から順に、ふわっと出す（--d が待ち時間） */
+.hero-text > * {
+  animation: fade-up 0.6s var(--d, 0s) ease-out both;
 }
+.hero-role { --d: 0.2s; }
+.hero-id { --d: 0.3s; }
+.hero-catch { --d: 0.5s; }
+.hero-lead { --d: 0.6s; }
+.hero-actions { --d: 0.7s; }
 
-/* 点滅するカーソル */
-.hero-cursor {
-  color: var(--color-main);
-  animation: blink 0.8s step-end infinite;
-}
-
-@keyframes blink {
-  50% {
+@keyframes fade-up {
+  from {
     opacity: 0;
+    transform: translateY(16px);
   }
 }
 
-.hero-intro {
-  margin-bottom: 32px;
-  font-size: 14px;
+/* 「Web エンジニア志望」：名前の上の小さなラベル */
+.hero-role {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  color: var(--color-shiba);
+}
+
+.hero-role::before {
+  content: '';
+  width: 28px;
+  height: 3px;
+  border-radius: 2px;
+  background-color: currentColor;
+}
+
+/* 写真と名前を横に並べる */
+.hero-id {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* 丸い写真。ボタンと同じく、紺の線＋オレンジの影でそろえる */
+.hero-avatar {
+  flex-shrink: 0;
+  width: 108px;
+  height: 108px;
+  border: 3px solid var(--color-ink);
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 4px 4px 0 var(--color-shiba);
+  transition: transform 0.3s cubic-bezier(0.3, 1.6, 0.6, 1);
+}
+
+.hero-avatar:hover {
+  transform: rotate(-6deg) scale(1.05);
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-weight: 400; /* Dela Gothic One は太さ1種類だけ */
+  font-size: clamp(44px, 5.6vw, 80px);
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+  color: var(--color-ink);
+}
+
+.hero-name small {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--font-base);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  color: var(--color-text-sub);
+}
+
+.hero-catch {
+  margin-top: 32px;
+  font-size: 28px;
+  line-height: 1.5;
+  font-weight: 900;
+  color: var(--color-ink);
+}
+
+/* この中では改行しない（スマホで「し、」だけが次の行に落ちないように） */
+.hero-phrase {
+  display: inline-block;
+}
+
+/* 強調する言葉に蛍光ペンの線 */
+.hero-catch em {
+  font-style: normal;
+  color: var(--color-shiba);
+  background: linear-gradient(transparent 60%, var(--color-cream) 60%);
+}
+
+.hero-lead {
+  margin-top: 12px;
+  text-wrap: pretty; /* 最後の行に1〜2文字だけ残らないようにする */
+  font-size: 16px;
+  font-weight: 500;
   line-height: 1.9;
   color: var(--color-text-sub);
 }
 
-.hero-github {
-  display: inline-block;
-  font-size: 46px;
-  color: var(--color-text);
-  transition: color 0.2s, transform 0.2s;
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
 }
 
-.hero-github:hover {
-  color: var(--color-main);
-  transform: scale(1.1);
+/* はんこ風のバッジ */
+.hero-stamp {
+  padding: 4px 12px;
+  border: 3px solid var(--color-shiba);
+  border-radius: 8px;
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  color: var(--color-shiba);
+  transform: rotate(-6deg);
 }
 
-.hero-photo {
-  flex-shrink: 0;
+/* ---------- 右：柴犬 ---------- */
+.hero-shiba {
+  position: relative;
+  z-index: 1; /* 前足を手すりより手前に出す */
+  align-self: end;
+  width: var(--shiba-width);
+  /* 画像の下のふちを手すりにぴったりのせる（すき間が出ないよう少しだけ重ねる） */
+  margin-bottom: -2px;
 }
 
-.hero-photo img {
-  width: 300px;
-  height: 300px;
+/* 柴犬のうしろの、大きな丸（おひさま） */
+.hero-shiba::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  /* 手すりまで届くと前足のあいだから見えるので、少し小さめにする */
+  left: 12%;
+  right: 12%;
+  top: 2%;
+  aspect-ratio: 1;
   border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 4px 4px 24px rgba(120, 130, 164, 0.35);
+  background-color: var(--color-shiba-light);
+  opacity: 0.45;
+  animation: sun 0.8s 0.2s ease-out both;
 }
 
-/* タブレット・スマホ：写真を上、文章を下にする */
-@media (max-width: 760px) {
+@keyframes sun {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+}
+
+/* 「なでてみてね」：柴犬の顔の左の空いている所に置き、柴犬の方を指す */
+.hero-shiba-hint {
+  position: absolute;
+  top: 44%;
+  left: -150px;
+  font-family: var(--font-hand);
+  font-size: 22px;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--color-shiba);
+  transform: rotate(-8deg);
+  animation: fade-up 0.6s 1.8s ease-out both;
+}
+
+.hero-shiba-hint::after {
+  content: ' →';
+}
+
+/* ---------- 手すり ---------- */
+.hero-ledge {
+  height: var(--ledge-height);
+  background-color: var(--color-ink);
+}
+
+.hero-scroll {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 16px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  color: var(--color-paper);
+}
+
+.hero-scroll span {
+  display: inline-block;
+  animation: bounce 1.4s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+/* ---------- タブレット ---------- */
+@media (max-width: 1100px) {
   .hero {
-    padding-top: 40px;
+    --shiba-width: 330px;
+  }
+}
+
+/* ---------- 縦に並べる ---------- */
+@media (max-width: 860px) {
+  .hero {
+    --shiba-width: min(240px, 66vw);
   }
   .hero-inner {
-    flex-direction: column-reverse;
-    gap: 32px;
-    text-align: center;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 40px; /* 「なでてみてね」を置く場所 */
   }
-  .hero-name {
-    justify-content: center;
-    font-size: 32px;
+  /* 縦並びでは、柴犬の真上に置く */
+  .hero-shiba-hint {
+    top: -34px;
+    left: 50%;
+    font-size: 20px;
+    transform: translateX(-50%);
+    animation: none;
   }
-  .hero-name-logo {
-    width: 44px;
-    height: 44px;
+  .hero-shiba-hint::after {
+    content: ' ↓';
   }
-  .hero-typewriter {
-    font-size: 16px;
+  .hero-text {
+    width: 100%;
+    padding: 40px 0 0;
+  }
+}
+
+/* ---------- スマホ ---------- */
+@media (max-width: 600px) {
+  .hero-role {
+    font-size: 13px;
+  }
+  .hero-id {
+    gap: 14px;
+  }
+  .hero-avatar {
+    width: 72px;
+    height: 72px;
+  }
+  .hero-name small {
+    font-size: 12px;
+  }
+  .hero-catch {
+    margin-top: 24px;
+    font-size: 21px;
+  }
+  .hero-lead {
+    font-size: 14px;
   }
   /* スマホでは改行を消して、画面幅で自然に折り返す */
-  .hero-intro br {
+  .hero-lead br {
     display: none;
   }
-  .hero-photo img {
-    width: 220px;
-    height: 220px;
+  .hero-actions {
+    gap: 12px;
   }
 }

@@ -1,88 +1,92 @@
-.skill {
-  display: flex;
-  align-items: center;
-  margin-bottom: 28px;
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
 }
 
-.skill-name {
+/* Reveal の箱（＝カード）を、行の高さいっぱいに伸ばす */
+.skill-grid-item {
+  display: flex;
+}
+
+.skill-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 24px;
+}
+
+.skill-card-head {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+/* アイコンの丸：マウスを乗せると、ころんと転がる */
+.skill-icon {
+  display: flex;
   flex-shrink: 0;
-  width: 190px;
-  font-size: 15px;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border: 3px solid var(--color-ink);
+  border-radius: 50%;
+  background-color: var(--color-shiba);
+  font-size: 20px;
+  color: #fff;
+  transition: transform 0.4s cubic-bezier(0.3, 1.5, 0.6, 1);
+}
+
+.skill-card:hover .skill-icon {
+  transform: rotate(-20deg) scale(1.08);
+}
+
+.skill-card-head h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 20px;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  color: var(--color-ink);
+}
+
+.skill-card-head p {
+  font-size: 13px;
   font-weight: 700;
-  color: rgba(0, 0, 0, 0.7);
+  color: var(--color-text-sub);
 }
 
-.skill-name i {
-  width: 20px;
-  font-size: 18px;
-  text-align: center;
-  color: var(--color-main);
-}
-
-/* バーと説明文をまとめる箱。説明文の位置の基準になる */
-.skill-body {
-  position: relative;
-  flex: 1;
-}
-
-/* 灰色の外枠 */
-.skill-bar {
-  padding: 3px;
-  border-radius: 5px;
-  background-color: #eee;
-  box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.15);
-}
-
-/* オレンジの中身。最初は短く、画面に入ったら --level まで伸びる */
-.skill-level {
-  width: 10%;
-  height: 32px;
-  border-radius: 3px 20px 20px 3px;
-  background: var(--gradient-tag);
-  transition: width 1.6s ease-out;
-}
-
-.skills-list.is-visible .skill-level {
-  width: var(--level);
-}
-
-/* 説明文：オレンジのバーの右端に重ねる。バーが伸びきってから表示する */
-.skill-detail {
-  position: absolute;
-  top: 50%;
-  right: calc(100% - var(--level) + 16px);
-  transform: translateY(-50%);
-  white-space: nowrap;
-  font-size: 12px;
+/* どこで使ったか：カードの一番下に寄せる */
+.skill-used {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 18px;
+  font-size: 13px;
   font-weight: 700;
-  color: #666;
-  opacity: 0;
-  transition: opacity 0.5s ease 1.4s;
+  line-height: 1.6;
+  color: var(--color-text-sub);
 }
 
-.skills-list.is-visible .skill-detail {
-  opacity: 1;
+.skill-used i {
+  margin-top: 3px;
+  color: var(--color-shiba);
 }
 
-/* スマホ：スキル名をバーの上、説明文をバーの下に置く */
+@media (max-width: 960px) {
+  .skill-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 600px) {
-  .skill {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
+  .skill-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
   }
-  .skill-level {
-    height: 20px;
-  }
-  .skill-detail {
-    position: static;
-    transform: none;
-    margin-top: 8px;
-    white-space: normal;
-    opacity: 1;
-    transition: none;
+  .skill-card {
+    padding: 20px;
   }
 }
