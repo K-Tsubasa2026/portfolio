@@ -31,10 +31,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: コードを取得
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Node.js を準備
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 24
           cache: npm
@@ -50,7 +50,7 @@ jobs:
 
       # アクセスキーは使わず、IAM ロールから一時的な権限をもらう
       - name: AWS の権限を受け取る
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v5
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
